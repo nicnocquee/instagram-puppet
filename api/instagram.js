@@ -37,6 +37,7 @@ export default async function handler(request, response) {
     for (let img of imgElements) {
       const src = await img.getProperty("srcset");
       const srcValue = await src.jsonValue();
+      console.log(srcValue);
       if (srcValue && srcValue.length > 0) {
         const bigImg = srcValue
           .split("w,")
