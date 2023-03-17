@@ -47,6 +47,18 @@ export default async function handler(request, response) {
       console.log(`Button with text "${buttonText}" not found.`);
     }
 
+    const h1El = await page.$("main article h1");
+    if (h1El) {
+      // Get the text content of the h1 element
+      const h1Text = await page.evaluate(
+        (element) => element.textContent.trim(),
+        h1El
+      );
+      console.log("H1 text:", h1Text);
+    } else {
+      console.log("H1 element not found.");
+    }
+
     const imgElements = await page.$$("main img");
     console.log(`number of img`, imgElements.length);
 
