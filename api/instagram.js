@@ -36,18 +36,24 @@ export default async function handler(request, response) {
     console.log(`number of img`, imgElements.length);
 
     // Extract the src attribute values
+    // for (let img of imgElements) {
+    //   const src = await img.getProperty("srcset");
+    //   const srcValue = await src.jsonValue();
+    //   console.log(srcValue);
+    //   if (srcValue && srcValue.length > 0) {
+    //     const bigImg = srcValue
+    //       .split("w,")
+    //       .find((s) => s.indexOf("1080w") > -1);
+    //     if (bigImg) {
+    //       imgSrcs.push(bigImg.replace(" 1080w", ""));
+    //     }
+    //   }
+    // }
+
     for (let img of imgElements) {
-      const src = await img.getProperty("srcset");
+      const src = await img.getProperty("src");
       const srcValue = await src.jsonValue();
-      console.log(srcValue);
-      if (srcValue && srcValue.length > 0) {
-        const bigImg = srcValue
-          .split("w,")
-          .find((s) => s.indexOf("1080w") > -1);
-        if (bigImg) {
-          imgSrcs.push(bigImg.replace(" 1080w", ""));
-        }
-      }
+      imgSrcs.push(srcValue);
     }
   } catch (error) {
     console.error(error);
