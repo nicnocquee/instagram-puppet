@@ -47,7 +47,7 @@ export default async function handler(request, response) {
       console.log(`Button with text "${buttonText}" not found.`);
     }
 
-    const imgElements = await page.$$("img");
+    const imgElements = await page.$$("main > img");
     console.log(`number of img`, imgElements.length);
 
     // Extract the src attribute values
