@@ -3,7 +3,7 @@ import { executablePath, puppeteer } from "chrome-aws-lambda";
 export default async function handler(request, response) {
   const { url } = request.query;
   if (typeof url !== "string") {
-    return response.status(401).json({ message: "invalid input" });
+    return response.status(401).json({ message: "invalid input 1" });
   }
 
   const imgSrcs = [];
@@ -11,10 +11,10 @@ export default async function handler(request, response) {
   try {
     const theURL = new URL(url);
     if (!theURL) {
-      return response.status(401).json({ message: "invalid input" });
+      return response.status(401).json({ message: "invalid input 2" });
     }
     if (theURL.host.indexOf("instagram") === -1) {
-      return response.status(401).json({ message: "invalid input" });
+      return response.status(401).json({ message: "invalid input 3" });
     }
 
     const browser = await puppeteer.launch({
@@ -41,7 +41,8 @@ export default async function handler(request, response) {
       }
     }
   } catch (error) {
-    return response.status(401).json({ message: "invalid input" });
+    console.error(error);
+    return response.status(401).json({ message: "invalid input 4" });
   }
 
   return response.status(200).json(imgSrcs);
