@@ -1,4 +1,7 @@
-import { executablePath, puppeteer } from "chrome-aws-lambda";
+import { puppeteer } from "chrome-aws-lambda";
+import puppeteer from "puppeteer-core";
+const LOCAL_CHROME_EXECUTABLE =
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 export default async function handler(request, response) {
   const { url } = request.query;
@@ -16,9 +19,13 @@ export default async function handler(request, response) {
     if (theURL.host.indexOf("instagram") === -1) {
       return response.status(401).json({ message: "invalid input 3" });
     }
+    const executablePath =
+      (await edgeChromium.executablePath) || LOCAL_CHROME_EXECUTABLE;
 
     const browser = await puppeteer.launch({
-      executablePath: await executablePath,
+      executablePath,
+      args: edgeChromium.args,
+      headless: false,
     });
     const page = await browser.newPage();
 
