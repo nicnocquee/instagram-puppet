@@ -1,4 +1,4 @@
-import { puppeteer } from "chrome-aws-lambda";
+import edgeChromium from "chrome-aws-lambda";
 import puppeteer from "puppeteer-core";
 const LOCAL_CHROME_EXECUTABLE =
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
