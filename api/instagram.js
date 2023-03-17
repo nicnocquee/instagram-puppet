@@ -49,12 +49,10 @@ export default async function handler(request, response) {
     }
 
     const main = await page.$("main");
-    const article = await page.$("article");
 
     console.log(main);
-    console.log(article);
 
-    const h1El = await page.$("main article h1");
+    const h1El = await page.$("main h1");
     if (h1El) {
       // Get the text content of the h1 element
       const h1Text = await page.evaluate(
