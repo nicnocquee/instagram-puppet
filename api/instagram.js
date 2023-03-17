@@ -48,6 +48,12 @@ export default async function handler(request, response) {
       console.log(`Button with text "${buttonText}" not found.`);
     }
 
+    const main = await page.$("main");
+    const article = await page.$("article");
+
+    console.log(main);
+    console.log(article);
+
     const h1El = await page.$("main article h1");
     if (h1El) {
       // Get the text content of the h1 element
