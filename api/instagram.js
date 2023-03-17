@@ -32,9 +32,11 @@ export default async function handler(request, response) {
     await page.setViewport({ width: 1024, height: 768 });
 
     const imgElements = await page.$$("img");
+    console.log(imgElements.length);
 
     // Extract the src attribute values
     for (let img of imgElements) {
+      console.log(img);
       const src = await img.getProperty("srcset");
       const srcValue = await src.jsonValue();
       console.log(srcValue);
