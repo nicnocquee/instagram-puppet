@@ -49,8 +49,11 @@ export default async function handler(request, response) {
     }
 
     const main = await page.$("main");
-
-    console.log(main);
+    if (main) {
+      console.log("there is main");
+    } else {
+      console.log("there is no main");
+    }
 
     const h1El = await page.$("main h1");
     if (h1El) {
