@@ -40,15 +40,14 @@ export default async function handler(request, response) {
       buttonText
     );
 
-    if (button) {
+    if (button.asElement()) {
       // Click the button
-      await page.evaluate((button) => {
-        button.click();
-      }, button);
+      await button.asElement().click();
     } else {
-      console.log("no coookie accept button");
+      console.log(`Button with text "${buttonText}" not found.`);
     }
 
+    console.log("wait for 5 seconds");
     await page.waitForTimeout(5000);
 
     const imgElements = await page.$$("img");
