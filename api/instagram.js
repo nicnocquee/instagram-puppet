@@ -42,7 +42,9 @@ export default async function handler(request, response) {
 
     if (button) {
       // Click the button
-      await button.click();
+      await page.evaluate((button) => {
+        button.click();
+      }, button);
     } else {
       console.log("no coookie accept button");
     }
