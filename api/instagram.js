@@ -30,7 +30,7 @@ export default async function handler(request, response) {
     const page = await browser.newPage();
 
     await page.goto(theURL.toString(), { waitUntil: "networkidle0" });
-    await page.setViewport({ width: 1024, height: 768 });
+    await page.setViewport({ width: 1800, height: 768 });
     const buttonText = "Allow essential and optional cookies";
     const button = await page.evaluateHandle(
       (text) =>
