@@ -31,29 +31,36 @@ export default async function handler(request, response) {
 
     await page.goto(theURL.toString(), { waitUntil: "networkidle0" });
     await page.setViewport({ width: 1024, height: 768 });
+    const buttonText = "Allow essential and optional cookies";
+    const button = await page.evaluateHandle(
+      (text) =>
+        [...document.querySelectorAll("button")].find(
+          (button) => button.textContent.trim() === text
+        ),
+      buttonText
+    );
+
+    if (button) {
+      // Click the button
+      await button.click();
+    }
 
     const imgElements = await page.$$("img");
     console.log(`number of img`, imgElements.length);
 
     // Extract the src attribute values
-    // for (let img of imgElements) {
-    //   const src = await img.getProperty("srcset");
-    //   const srcValue = await src.jsonValue();
-    //   console.log(srcValue);
-    //   if (srcValue && srcValue.length > 0) {
-    //     const bigImg = srcValue
-    //       .split("w,")
-    //       .find((s) => s.indexOf("1080w") > -1);
-    //     if (bigImg) {
-    //       imgSrcs.push(bigImg.replace(" 1080w", ""));
-    //     }
-    //   }
-    // }
-
     for (let img of imgElements) {
-      const src = await img.getProperty("src");
+      const src = await img.getProperty("srcset");
       const srcValue = await src.jsonValue();
-      imgSrcs.push(srcValue);
+      console.log(srcValue);
+      if (srcValue && srcValue.length > 0) {
+        const bigImg = srcValue
+          .split("w,")
+          .find((s) => s.indexOf("1080w") > -1);
+        if (bigImg) {
+          imgSrcs.push(bigImg.replace(" 1080w", ""));
+        }
+      }
     }
   } catch (error) {
     console.error(error);
