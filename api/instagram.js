@@ -28,6 +28,7 @@ export default async function handler(request, response) {
       headless: false,
     });
     const page = await browser.newPage();
+    console.log(theURL.toString());
 
     await page.goto(theURL.toString(), { waitUntil: "networkidle0" });
     await page.setViewport({ width: 1800, height: 768 });
