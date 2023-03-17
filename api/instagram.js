@@ -25,6 +25,7 @@ export default async function handler(request, response) {
     const browser = await puppeteer.launch({
       executablePath,
       args: edgeChromium.args,
+      headless: false,
     });
     const page = await browser.newPage();
 
@@ -32,11 +33,10 @@ export default async function handler(request, response) {
     await page.setViewport({ width: 1024, height: 768 });
 
     const imgElements = await page.$$("img");
-    console.log(imgElements.length);
+    console.log(`number of img`, imgElements.length);
 
     // Extract the src attribute values
     for (let img of imgElements) {
-      console.log(img);
       const src = await img.getProperty("srcset");
       const srcValue = await src.jsonValue();
       console.log(srcValue);
