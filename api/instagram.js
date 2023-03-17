@@ -52,11 +52,15 @@ export default async function handler(request, response) {
 
     // Extract the src attribute values
     for (let img of imgElements) {
-      const src = await img.getProperty("srcset");
+      const src = await img.getProperty("src");
       const srcValue = await src.jsonValue();
       console.log(srcValue);
-      if (srcValue && srcValue.length > 0) {
-        const bigImg = srcValue
+
+      const srcset = await img.getProperty("srcset");
+      const srcSetValue = await srcset.jsonValue();
+      console.log(srcSetValue);
+      if (srcSetValue && srcSetValue.length > 0) {
+        const bigImg = srcSetValue
           .split("w,")
           .find((s) => s.indexOf("1080w") > -1);
         if (bigImg) {
