@@ -43,7 +43,11 @@ export default async function handler(request, response) {
     if (button) {
       // Click the button
       await button.click();
+    } else {
+      console.log("no coookie accept button");
     }
+
+    await page.waitForTimeout(5000);
 
     const imgElements = await page.$$("img");
     console.log(`number of img`, imgElements.length);
