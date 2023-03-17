@@ -47,9 +47,6 @@ export default async function handler(request, response) {
       console.log(`Button with text "${buttonText}" not found.`);
     }
 
-    console.log("wait for 5 seconds");
-    await page.waitForTimeout(5000);
-
     const imgElements = await page.$$("img");
     console.log(`number of img`, imgElements.length);
 
