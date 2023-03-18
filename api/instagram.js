@@ -33,6 +33,22 @@ export default async function handler(request, response) {
     await page.setViewport({ width: 1800, height: 768 });
     await page.goto(theURL.toString(), { waitUntil: "networkidle0" });
 
+    const buttonText = "Allow essential and optional cookies";
+    const button = await page.evaluateHandle(
+      (text) =>
+        [...document.querySelectorAll("button")].find(
+          (button) => button.textContent.trim() === text
+        ),
+      buttonText
+    );
+
+    if (button.asElement()) {
+      // Click the button
+      await button.asElement().click();
+    } else {
+      console.log(`Button with text "${buttonText}" not found.`);
+    }
+
     const screenshotBuffer = await page.screenshot();
 
     return response.send(screenshotBuffer);
