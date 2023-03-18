@@ -30,9 +30,15 @@ export default async function handler(request, response) {
     const page = await browser.newPage();
     console.log(theURL.toString());
 
-    await page.goto(theURL.toString(), { waitUntil: "networkidle0" });
     await page.setViewport({ width: 1800, height: 768 });
-    const buttonText = "Allow essential and optional cookies";
+    await page.goto(theURL.toString(), { waitUntil: "networkidle0" });
+
+    const screenshotBuffer = await page.screenshot();
+
+    return response.send(screenshotBuffer);
+
+    /*
+ const buttonText = "Allow essential and optional cookies";
     const button = await page.evaluateHandle(
       (text) =>
         [...document.querySelectorAll("button")].find(
@@ -88,6 +94,7 @@ export default async function handler(request, response) {
         }
       }
     }
+   */
   } catch (error) {
     console.error(error);
     return response.status(401).json({ message: "invalid input 4" });
