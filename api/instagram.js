@@ -28,8 +28,9 @@ export default async function handler(request, response) {
       headless: false,
     });
     const page = await browser.newPage();
-    console.log(theURL.toString());
-
+    await page.setUserAgent(
+      `user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36`
+    );
     await page.setViewport({ width: 1800, height: 768 });
     await page.goto(theURL.toString(), { waitUntil: "networkidle0" });
 
