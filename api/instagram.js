@@ -3,6 +3,8 @@ import puppeteer from "puppeteer-core";
 const LOCAL_CHROME_EXECUTABLE =
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
+// test
+
 export default async function handler(request, response) {
   const { url } = request.query;
   if (typeof url !== "string") {
